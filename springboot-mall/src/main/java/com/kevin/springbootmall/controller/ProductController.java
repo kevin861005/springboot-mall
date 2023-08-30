@@ -56,4 +56,17 @@ public class ProductController {
 
         return ResponseEntity.status(HttpStatus.OK).body(updatedProduct);
     }
+
+    /*
+        對於前端來說，只要確定這個商品消失不見，就代表刪除商品這個功能是成功的
+        所以只要商品存在，成功地刪掉或是商品本來就不存在，就代表這個 API 功能是正確的
+        不需要去多加一些 404 Not Found 的檢查判斷
+     */
+    @DeleteMapping("/products/{productId}")
+    public ResponseEntity<?> deleteProduct(@PathVariable Integer productId) {
+
+        productService.deleteProductById(productId);
+
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 }
