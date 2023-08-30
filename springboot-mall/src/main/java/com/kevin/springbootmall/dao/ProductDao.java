@@ -5,7 +5,9 @@ import com.kevin.springbootmall.model.Product;
 
 public interface ProductDao {
 
-    public Product getProductById(int productId);
+    public Product getProductById(Integer productId);
 
     public int createProduct(ProductRequest productRequest);
+
+    public void updateProduct(Integer productId, ProductRequest productRequest);
 }

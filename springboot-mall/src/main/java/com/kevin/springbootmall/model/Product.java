@@ -6,21 +6,21 @@ import java.util.Date;
 
 public class Product {
 
-    private int productId;
+    private Integer productId;
     private String productName;
     private ProductCategory category;
     private String imageUrl;
-    private int price;
-    private int stock;
+    private Integer price;
+    private Integer stock;
     private String description;
     private Date createdDate;
     private Date lastModifiedDate;
 
-    public int getProductId() {
+    public Integer getProductId() {
         return productId;
     }
 
-    public void setProductId(int productId) {
+    public void setProductId(Integer productId) {
         this.productId = productId;
     }
 
@@ -48,19 +48,19 @@ public class Product {
         this.imageUrl = imageUrl;
     }
 
-    public int getPrice() {
+    public Integer getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(Integer price) {
         this.price = price;
     }
 
-    public int getStock() {
+    public Integer getStock() {
         return stock;
     }
 
-    public void setStock(int stock) {
+    public void setStock(Integer stock) {
         this.stock = stock;
     }
 
