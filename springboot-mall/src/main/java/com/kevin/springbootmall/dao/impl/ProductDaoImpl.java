@@ -121,7 +121,10 @@ public class ProductDaoImpl implements ProductDao {
         String search = productQueryParams.getSearch();
         String orderBy = productQueryParams.getOrderBy();
         String sort = productQueryParams.getSort();
+        int limit = productQueryParams.getLimit();
+        int offset = productQueryParams.getOffset();
 
+        // 查詢條件
         if (category != null) {
             sql += " AND category = :category ";
             map.put("category", category.name());
@@ -136,8 +139,14 @@ public class ProductDaoImpl implements ProductDao {
             map.put("search", "%" + search + "%");
         }
 
+        // 排序
         // 排序只能使用字串拼接方式，不能使用變數替換的方式
         sql = sql + " ORDER BY " + orderBy + " " + sort;
+
+        // 分頁
+        sql = sql + " LIMIT :limit OFFSET :offset ";
+        map.put("limit", limit);
+        map.put("offset", offset);
 
         List<Product> productList = namedParameterJdbcTemplate.query(sql, map, new ProductRowMapper());
 
