@@ -1,6 +1,7 @@
 package com.kevin.springbootmall.service;
 
 import com.kevin.springbootmall.constant.ProductCategory;
+import com.kevin.springbootmall.dto.ProductQueryParams;
 import com.kevin.springbootmall.dto.ProductRequest;
 import com.kevin.springbootmall.model.Product;
 
@@ -16,5 +17,5 @@ public interface ProductService {
 
     void deleteProductById(Integer productId);
 
-    List<Product> getProducts(ProductCategory category, String search);
+    List<Product> getProducts(ProductQueryParams productQueryParams);
 }
