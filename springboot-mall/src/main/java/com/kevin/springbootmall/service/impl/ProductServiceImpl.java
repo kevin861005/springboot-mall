@@ -22,7 +22,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public int createProduct(ProductRequest productRequest) {
+    public Integer createProduct(ProductRequest productRequest) {
         return productDao.createProduct(productRequest);
     }
 
@@ -39,5 +39,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> getProducts(ProductQueryParams productQueryParams) {
         return productDao.getProducts(productQueryParams);
+    }
+
+    @Override
+    public Integer countProduct(ProductQueryParams productQueryParams) {
+        return productDao.countProduct(productQueryParams);
     }
 }

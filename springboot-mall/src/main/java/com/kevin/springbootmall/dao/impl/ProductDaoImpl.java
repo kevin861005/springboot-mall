@@ -43,7 +43,7 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    public int createProduct(ProductRequest productRequest) {
+    public Integer createProduct(ProductRequest productRequest) {
         String sql = " INSERT INTO product ( "
                     + " product_name, category, image_url, price, stock "
                     + " , description, created_date, last_modified_date "
@@ -68,7 +68,7 @@ public class ProductDaoImpl implements ProductDao {
 
         namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource(map), keyHolder);
 
-        int productId = keyHolder.getKey().intValue();
+        Integer productId = keyHolder.getKey().intValue();
 
         return productId;
     }
@@ -151,5 +151,37 @@ public class ProductDaoImpl implements ProductDao {
         List<Product> productList = namedParameterJdbcTemplate.query(sql, map, new ProductRowMapper());
 
         return productList;
+    }
+
+    @Override
+    public Integer countProduct(ProductQueryParams productQueryParams) {
+        String sql = " SELECT count(*) "
+                    + " FROM product "
+                    + " WHERE 1 = 1 ";
+
+        Map<String, Object> map = new HashMap<>();
+
+        ProductCategory category = productQueryParams.getCategory();
+        String search = productQueryParams.getSearch();
+
+        // 查詢條件
+        if (category != null) {
+            sql += " AND category = :category ";
+            map.put("category", category.name());
+        }
+
+        if (search != null) {
+            /*
+                % 不可以寫在 sql 語法裡面
+                一定要寫在 map 裡面
+             */
+            sql += " AND product_name LIKE :search ";
+            map.put("search", "%" + search + "%");
+        }
+
+        // queryForObject 適用於 count 方法
+        Integer total = namedParameterJdbcTemplate.queryForObject(sql, map, Integer.class);
+
+        return total;
     }
 }
